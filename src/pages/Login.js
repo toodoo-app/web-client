@@ -1,6 +1,8 @@
 const Login = () => {
     return (
-        <p>Login page!</p>
+        <main className="">
+            <p>Login page!</p>
+        </main>
     );
 }
  
