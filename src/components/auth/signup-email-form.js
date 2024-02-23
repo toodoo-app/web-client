@@ -1,34 +1,34 @@
 'use client'
 
 import { Input } from "@/components/ui/input";
-import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Button } from "../ui/button";
 import {useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
     email: z.string().email({
         message: "Email must be a valid email.",
     }),
-    password: z.string({
-        message: "Password must be a valid password.",
-    })
 });
 
-const LoginForm = () => {
+const SingupEmailForm = () => {
+    const router = useRouter();
+
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             email: "",
-            password: "",
         },
     });
 
-    function onSubmit() {
-        //TODO: add onsubmit login function
+    function onSubmit(formData) {
+        const email = encodeURIComponent(formData.email)
+        router.push(`/signup/verify-email?email=${email}`)
     }
-    
+
     return (
         <Form {...form}>
             <form
@@ -40,33 +40,21 @@ const LoginForm = () => {
                     name="email"
                     render={ ({ field }) => (
                         <FormItem>
-                            <FormLabel>Email address</FormLabel>
+                            <FormLabel>Your Email Address</FormLabel>
                             <FormControl>
-                                <Input type="email" placeholder="Email" {...field} required />
+                                <Input type="email" placeholder="email@address.com" {...field} required />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <FormField
-                    control={form.control}
-                    name="password"
-                    render={ ({ field }) => (
-                        <FormItem>
-                            <FormLabel>Password</FormLabel>
-                            <FormControl>
-                                <Input type="password" placeholder="Password" {...field} required />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+
                 <div className="flex justify-center w-full">
-                    <Button className="w-full" type="submit">Login</Button>
+                    <Button className="w-full" type="submit">Sign up with email</Button>
                 </div>
             </form>
         </Form>
     );
 }
  
-export default LoginForm;
+export default SingupEmailForm;

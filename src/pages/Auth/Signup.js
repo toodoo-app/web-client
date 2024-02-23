@@ -5,8 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import SingupEmailForm from "@/components/auth/signup-email-form";
 
 const Signup = () => {
     return (
@@ -31,16 +30,7 @@ const Signup = () => {
                         OR
                     </TypographyMuted>
                 </div>
-                <form className="flex flex-col gap-4 mb-4">
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="email">Your Email Address</Label>
-                        <Input type="email" id="email" placeholder="email@address.com" required/>
-                    </div>
-
-                    <div className="flex justify-center w-full">
-                        <Button className="w-full">Sign up with email</Button>
-                    </div>
-                </form>
+                <SingupEmailForm />
                 <TypographyMuted className="text-center mb-8 text-xs">
                     By clicking the button above, you agree to<br/>our <Link href="/tos" className="underline">Terms of Use</Link> and <Link href="/privacy-policy" className="underline">Privacy Policy</Link>
                 </TypographyMuted>
