@@ -1,4 +1,4 @@
-import Register from "@/pages/Signup";
+import Register from "@/pages/Auth/Signup";
 
 const RegisterPage = () => {
     return (
