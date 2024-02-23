@@ -1,3 +1,5 @@
+'use client'
+
 import { TypographyH3, TypographyMuted, TypographySmall } from "@/components/ui/typography/typo";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
@@ -32,7 +34,7 @@ const Signup = () => {
                 <form className="flex flex-col gap-4 mb-4">
                     <div className="grid w-full max-w-sm items-center gap-1.5">
                         <Label htmlFor="email">Your Email Address</Label>
-                        <Input type="email" id="email" placeholder="email@address.com" />
+                        <Input type="email" id="email" placeholder="email@address.com" required/>
                     </div>
 
                     <div className="flex justify-center w-full">
@@ -44,7 +46,7 @@ const Signup = () => {
                 </TypographyMuted>
                 <div className="w-full text-center">
                     <TypographySmall className="text-center">
-                        Already have an account? <Link href="/signup" className="underline">Register instead.</Link>
+                        Already have an account? <Link href="/login" className="underline">Login</Link>.
                     </TypographySmall>
                 </div>
             </div>

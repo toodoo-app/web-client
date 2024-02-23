@@ -1,10 +1,11 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { TypographyH3, TypographyMuted, TypographySmall } from "@/components/ui/typography/typo";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
 import Link from "next/link";
+import LoginForm from "@/components/auth/login-form";
 
 const Login = () => {
     return (
@@ -26,20 +27,7 @@ const Login = () => {
                         OR
                     </TypographyMuted>
                 </div>
-                <form className="flex flex-col gap-4 mb-4">
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="email">Email address</Label>
-                        <Input type="email" id="email" placeholder="Email" />
-                    </div>
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="password">Password</Label>
-                        <Input type="password" placeholder="Password" />
-                    </div>
-                    
-                    <div className="flex justify-center w-full">
-                        <Button className="w-full">Login</Button>
-                    </div>
-                </form>
+                <LoginForm />
                 <div className="w-full text-center">
                     <TypographySmall asChild>
                         <Link href="/signup" className="underline">Register instead.</Link>
