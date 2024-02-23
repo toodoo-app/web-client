@@ -1,7 +1,9 @@
-const Register = () => {
+const Signup = () => {
     return (
-        <p>Register!</p>
+        <main className="h-full px-4">
+            
+        </main>
     );
 }
  
-export default Register;
+export default Signup;

@@ -11,6 +11,14 @@ export function TypographyH1({ className, children }) {
     )
 }
 
+export function TypographyH2({ className, children }) {
+  return (
+    <h2 className={cn("scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0", className, figtree.className)}>
+      { children }
+    </h2>
+  )
+}
+
 export function TypographyMuted({ className, children }) {
     return (
       <p className={cn("text-sm text-muted-foreground", className)}>

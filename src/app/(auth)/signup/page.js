@@ -1,8 +1,8 @@
-import Register from "@/pages/Auth/Signup";
+import Signup from "@/pages/Auth/Signup";
 
 const RegisterPage = () => {
     return (
-        <Register />
+        <Signup />
     );
 }
  
