@@ -6,6 +6,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import {useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase/firebase";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
     email: z.string().email({
@@ -17,6 +20,8 @@ const FormSchema = z.object({
 });
 
 const LoginForm = () => {
+    const router = useRouter();
+    const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -25,8 +30,14 @@ const LoginForm = () => {
         },
     });
 
-    function onSubmit() {
-        //TODO: add onsubmit login function
+    async function onSubmit(formData) {
+        try {
+            const res = await signInWithEmailAndPassword(formData.email, formData.password);
+            console.log({res});
+            router.push('/');
+        } catch (e) {
+            console.error(e);
+        }
     }
     
     return (

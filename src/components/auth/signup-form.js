@@ -7,6 +7,8 @@ import {useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase/firebase";
 
 const FormSchema = z.object({
     email: z.string().email({
@@ -28,8 +30,10 @@ const FormSchema = z.object({
 });
 
 const SingupEmailForm = () => {
-    const router = useRouter();
 
+    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+
+    const router = useRouter();
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -38,9 +42,15 @@ const SingupEmailForm = () => {
         },
     });
 
-    function onSubmit(formData) {
-        const email = encodeURIComponent(formData.email)
-        router.push(`/signup/verify-email?email=${email}`)
+    async function onSubmit(formData) {
+        const email = encodeURIComponent(formData.email);
+        try {
+            const res = await createUserWithEmailAndPassword(formData.email, formData.password);
+            console.log({res})
+        } catch (e) {
+            console.error(e);
+        }
+        // router.push(`/signup/verify-email?email=${email}`)
     }
 
     return (
@@ -69,7 +79,7 @@ const SingupEmailForm = () => {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input type="email" placeholder="Password" {...field} required />
+                                <Input type="password" placeholder="Password" {...field} required />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

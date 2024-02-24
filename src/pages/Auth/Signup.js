@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import SingupEmailForm from "@/components/auth/signup-email-form";
+import SingupEmailForm from "@/components/auth/signup-form";
 
 const Signup = () => {
     return (
