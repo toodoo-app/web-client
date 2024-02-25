@@ -30,7 +30,7 @@ const Login = () => {
                 <LoginForm />
                 <div className="w-full text-center">
                     <TypographySmall asChild>
-                        <Link href="/signup" className="underline">Register instead.</Link>
+                        <Link href="/auth/signup" className="underline">Register instead.</Link>
                     </TypographySmall>
                 </div>
             </div>

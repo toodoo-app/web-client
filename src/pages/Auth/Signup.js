@@ -17,7 +17,7 @@ const Signup = () => {
                         Sign up to start your free trial
                     </TypographyH3>
                     <TypographySmall>
-                        Try Stuph free, cancel anytime
+                        Try Things2Do free, cancel anytime
                     </TypographySmall>
                 </div>
                 <div className="flex flex-col gap-4 mb-4">
@@ -36,7 +36,7 @@ const Signup = () => {
                 </TypographyMuted>
                 <div className="w-full text-center">
                     <TypographySmall className="text-center">
-                        Already have an account? <Link href="/login" className="underline">Login</Link>.
+                        Already have an account? <Link href="/auth/login" className="underline">Login</Link>.
                     </TypographySmall>
                 </div>
             </div>

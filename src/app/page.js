@@ -1,9 +1,17 @@
-import Image from "next/image";
+import Home from "@/pages/App/Home";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from 'next/navigation';
 
-export default function Home() {
+export default async function HomePage() {
+
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+
+  if(error || !data?.user) {
+      redirect('/auth/login')
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      
-    </main>
+    <Home />    
   );
 }

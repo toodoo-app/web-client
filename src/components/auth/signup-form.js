@@ -7,20 +7,20 @@ import {useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/lib/firebase/firebase";
+import { signup } from "@/app/auth/actions";
 
 const FormSchema = z.object({
     email: z.string().email({
         message: "Email must be a valid email.",
     }),
-    password: z.string()
+    password: z.string().min(6, {
+        message: "Password must be at least 6 characters long."
+    })
     .refine( (password) => {
         const lowercaseRegex = /[a-z]/;
         const uppercaseRegex = /[A-Z]/;
         const symbolRegex = /^[\w!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]+$/;
 
-        // Check if password satisfies all conditions
         const containsLowercase = lowercaseRegex.test(password);
         const containsUppercase = uppercaseRegex.test(password);
         const containsSymbol = symbolRegex.test(password);
@@ -30,10 +30,8 @@ const FormSchema = z.object({
 });
 
 const SingupEmailForm = () => {
-
-    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
-
     const router = useRouter();
+
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -43,14 +41,9 @@ const SingupEmailForm = () => {
     });
 
     async function onSubmit(formData) {
-        const email = encodeURIComponent(formData.email);
-        try {
-            const res = await createUserWithEmailAndPassword(formData.email, formData.password);
-            console.log({res})
-        } catch (e) {
-            console.error(e);
-        }
+        // const email = encodeURIComponent(formData.email)
         // router.push(`/signup/verify-email?email=${email}`)
+        const res = await signup(formData);
     }
 
     return (
