@@ -6,6 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import {useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { login } from "@/app/auth/actions";
 
 const FormSchema = z.object({
     email: z.string().email({
@@ -25,8 +26,9 @@ const LoginForm = () => {
         },
     });
 
-    function onSubmit() {
+    async function onSubmit(formData) {
         //TODO: add onsubmit login function
+        const res = await login(formData);
     }
     
     return (

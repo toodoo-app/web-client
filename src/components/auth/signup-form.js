@@ -7,18 +7,20 @@ import {useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { signup } from "@/app/auth/actions";
 
 const FormSchema = z.object({
     email: z.string().email({
         message: "Email must be a valid email.",
     }),
-    password: z.string()
+    password: z.string().min(6, {
+        message: "Password must be at least 6 characters long."
+    })
     .refine( (password) => {
         const lowercaseRegex = /[a-z]/;
         const uppercaseRegex = /[A-Z]/;
         const symbolRegex = /^[\w!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]+$/;
 
-        // Check if password satisfies all conditions
         const containsLowercase = lowercaseRegex.test(password);
         const containsUppercase = uppercaseRegex.test(password);
         const containsSymbol = symbolRegex.test(password);
@@ -38,9 +40,10 @@ const SingupEmailForm = () => {
         },
     });
 
-    function onSubmit(formData) {
-        const email = encodeURIComponent(formData.email)
-        router.push(`/signup/verify-email?email=${email}`)
+    async function onSubmit(formData) {
+        // const email = encodeURIComponent(formData.email)
+        // router.push(`/signup/verify-email?email=${email}`)
+        const res = await signup(formData);
     }
 
     return (
@@ -69,7 +72,7 @@ const SingupEmailForm = () => {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input type="email" placeholder="Password" {...field} required />
+                                <Input type="password" placeholder="Password" {...field} required />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
