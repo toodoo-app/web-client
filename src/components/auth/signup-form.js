@@ -41,8 +41,6 @@ const SingupEmailForm = () => {
     });
 
     async function onSubmit(formData) {
-        // const email = encodeURIComponent(formData.email)
-        // router.push(`/signup/verify-email?email=${email}`)
         const res = await signup(formData);
     }
 

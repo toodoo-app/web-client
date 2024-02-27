@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import DialogOnboarding from "@/components/onboarding/dialog";
 
-const Home = ({ firstlogin }) => {
+const Home = () => {
     const router = useRouter();
     const supabase = createClient();
 
