@@ -6,8 +6,9 @@ import { Button } from "../ui/button";
 import {useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { signup } from "@/app/auth/actions";
+import { useState } from "react";
+import { LuLoader } from "react-icons/lu";
 
 const FormSchema = z.object({
     email: z.string().email({
@@ -30,8 +31,7 @@ const FormSchema = z.object({
 });
 
 const SingupEmailForm = () => {
-    const router = useRouter();
-
+    const [loading, setLoading] = useState(false);
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -41,6 +41,7 @@ const SingupEmailForm = () => {
     });
 
     async function onSubmit(formData) {
+        setLoading(true);
         const res = await signup(formData);
     }
 
@@ -57,7 +58,7 @@ const SingupEmailForm = () => {
                         <FormItem>
                             <FormLabel>Your Email Address</FormLabel>
                             <FormControl>
-                                <Input type="email" placeholder="email@address.com" {...field} required />
+                                <Input type="email" placeholder="email@address.com" {...field} required disabled={loading} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -70,7 +71,7 @@ const SingupEmailForm = () => {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input type="password" placeholder="Password" {...field} required />
+                                <Input type="password" placeholder="Password" {...field} required disabled={loading} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -78,7 +79,10 @@ const SingupEmailForm = () => {
                 />
 
                 <div className="flex justify-center w-full">
-                    <Button className="w-full" type="submit">Sign up with email</Button>
+                    <Button className="w-full" type="submit" disabled={loading}>
+                        { loading ? <LuLoader className="mr-2 h-4 w-4 animate-spin" /> : '' }
+                        Sign up with email
+                    </Button>
                 </div>
             </form>
         </Form>
