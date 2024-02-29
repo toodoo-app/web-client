@@ -39,3 +39,10 @@ export async function signup(formData) {
     revalidatePath('/', 'layout');
     redirect('/?first-login=true');
 }
+
+export async function oAuthSingIn () {
+
+
+    console.log(data)
+    console.log(error)
+}
