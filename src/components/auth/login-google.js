@@ -24,7 +24,7 @@ const LoginWithGoogleButton = () => {
     return (
         <Button variant="outline" onClick={() => handleSubmit()}>
             <FcGoogle className="mr-2" />
-            Login with Google
+            Continue with Google
         </Button>
     );
 }

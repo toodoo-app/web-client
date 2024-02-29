@@ -7,12 +7,12 @@ import { redirect } from "next/navigation";
 export async function login(formData) {
     const supabase = createClient();
 
-    const data = {
+    const userData = {
         email: formData.email,
         password: formData.password
     }
 
-    const { error } = await supabase.auth.signInWithPassword(data);
+    const { data, error } = await supabase.auth.signInWithPassword(userData);
 
     if(error) {
         redirect('/error')
@@ -25,24 +25,21 @@ export async function login(formData) {
 export async function signup(formData) {
     const supabase = createClient();
 
-    const data = {
+    const userData = {
         email: formData.email,
         password: formData.password
     }
 
-    const { error } = await supabase.auth.signUp(data);
+    const { data, error } = await supabase.auth.signUp(userData);
 
     if(error) {
         redirect('/error')
+    } else if (data.user && data.user.identities && data.user.identities.length === 0) {
+        const error = encodeURIComponent('User already exists.');
+        revalidatePath('/', 'layout');
+        redirect('/auth/signup?error=' + error);
     }
 
     revalidatePath('/', 'layout');
     redirect('/?first-login=true');
-}
-
-export async function oAuthSingIn () {
-
-
-    console.log(data)
-    console.log(error)
 }

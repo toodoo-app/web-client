@@ -20,7 +20,6 @@ const Login = () => {
                 </div>
                 <div className="flex flex-col gap-4 mb-4">
                     <LoginWithGoogleButton />
-                    <Button variant="outline" > <FaApple className="mr-2" /> Login with Apple </Button>
                 </div>
                 <div className="relative my-8">
                     <hr />

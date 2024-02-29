@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signup } from "@/app/auth/actions";
 import { useState } from "react";
 import { LuLoader } from "react-icons/lu";
+import { useSearchParams } from "next/navigation";
 
 const FormSchema = z.object({
     email: z.string().email({
@@ -31,7 +32,10 @@ const FormSchema = z.object({
 });
 
 const SingupEmailForm = () => {
+    const params = useSearchParams();
+    const error = params.get('error');
     const [loading, setLoading] = useState(false);
+
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -43,6 +47,7 @@ const SingupEmailForm = () => {
     async function onSubmit(formData) {
         setLoading(true);
         const res = await signup(formData);
+        setLoading(false);
     }
 
     return (
@@ -60,7 +65,7 @@ const SingupEmailForm = () => {
                             <FormControl>
                                 <Input type="email" placeholder="email@address.com" {...field} required disabled={loading} />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage>{ error ? error : '' }</FormMessage>
                         </FormItem>
                     )}
                 />

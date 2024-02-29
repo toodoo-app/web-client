@@ -6,6 +6,7 @@ import { FaApple } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import SingupEmailForm from "@/components/auth/signup-form";
+import LoginWithGoogleButton from "@/components/auth/login-google";
 
 const Signup = () => {
     return (
@@ -21,8 +22,7 @@ const Signup = () => {
                     </TypographySmall>
                 </div>
                 <div className="flex flex-col gap-4 mb-4">
-                    <Button variant="outline" > <FcGoogle className="mr-2" /> Continue with Google </Button>
-                    <Button variant="outline" > <FaApple className="mr-2" /> Continue with Apple </Button>
+                    <LoginWithGoogleButton />
                 </div>
                 <div className="relative my-8">
                     <hr />
